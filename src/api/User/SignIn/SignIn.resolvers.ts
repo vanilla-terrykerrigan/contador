@@ -7,7 +7,7 @@ import createJWT from "../../../utils/CreateJWT";
 const resolvers: Resolvers = {
     Mutation: {
         SignIn: async (_, args: MutationSignInArgs): Promise<SignInResponse> => {
-            const {username, password} = args;
+            const { username, password } = args;
             try {
                 const user = await User.findOne({ where: { username } })
                 if (!user) {

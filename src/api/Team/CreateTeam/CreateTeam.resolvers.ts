@@ -6,7 +6,7 @@ const resolvers: Resolvers = {
     Mutation: {
         CreateTeam: async (_, args: MutationCreateTeamArgs, { req }): Promise<CreateTeamResponse> => {
             try {
-                await Team.create({ ...args, ownerId: req.ReqUser.id}).save();
+                await Team.create({ ...args, ownerId: req.user.id}).save();
                 return {
                     ok: true,
                     error: null
