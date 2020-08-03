@@ -1,0 +1,8 @@
+type CreateChannelResponse {
+    ok: Boolean!
+    error: String
+}
+
+type Mutation {
+    CreateChannel(teamId: Int!, name: String!, shared: Boolean!=false): CreateChannelResponse!
+}

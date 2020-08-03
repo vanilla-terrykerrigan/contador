@@ -1,0 +1,16 @@
+type GetUserResponse {
+    ok: Boolean!
+    error: String
+    user: User
+}
+
+type GetAllUserResponse {
+    ok: Boolean!
+    error: String
+    user: [User]
+}
+
+type Query {
+    GetUser(id: Int!): GetUserResponse!
+    GetAllUsers: GetAllUserResponse!
+}

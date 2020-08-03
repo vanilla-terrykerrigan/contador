@@ -1,0 +1,10 @@
+type Channel {
+    id: Int!
+    name: String!
+    messages: [Message]
+    team: Team
+    users: [User]
+    shared: Boolean!
+    createdAt: String!
+    updatedAt: String
+}
