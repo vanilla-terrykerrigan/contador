@@ -26,15 +26,20 @@ query {
 }
 `
 
-export class App extends Component {  
-    render() {
-        return (
-            <p>test</p>
-        )
-    }
-}
+// export class App extends Component {  
+//     render() {
+//         return (
+//             <p>test</p>
+//         )
+//     }
+// }
 
 
+function App() {
+    return (
+        <h1>React + Apollo Client</h1>
+    )
+  }
 
 export class Continents extends Component {  
     render() {
@@ -93,4 +98,4 @@ export class Continents extends Component {
 //   );
 // }
 
-//export default App;
+export default App;
