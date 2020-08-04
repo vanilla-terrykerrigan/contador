@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {App, Continents} from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Router>
+        <div>
+        <Route exact path="/" component={App}/>
+        <Route path="/Continents" component={Continents}/>
+        </div>
+    </Router>,
   document.getElementById('root')
 );
 
