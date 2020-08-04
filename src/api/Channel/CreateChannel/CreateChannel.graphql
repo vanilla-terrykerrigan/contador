@@ -4,5 +4,5 @@ type CreateChannelResponse {
 }
 
 type Mutation {
-    CreateChannel(teamId: Int!, name: String!, shared: Boolean!=false): CreateChannelResponse!
+    CreateChannel(name: String!, shared: Boolean!=false, userId: Int!): CreateChannelResponse!
 }

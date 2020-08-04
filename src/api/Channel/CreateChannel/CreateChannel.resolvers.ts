@@ -1,34 +1,22 @@
 import {MutationCreateChannelArgs, CreateChannelResponse} from "../../../types/graphql";
 import { Resolvers } from "../../../types/resolvers";
 import Channel from "../../../entities/Channel";
-import Team from "../../../entities/Team";
+import User from "../../../entities/User";
+
 
 const resolvers: Resolvers = {
     Mutation: {
         CreateChannel: async (_, args: MutationCreateChannelArgs, { req }): Promise<CreateChannelResponse> => {
-            const {name, shared, teamId} = args;
-            console.log(name, shared, teamId)
-            const { user } = req;
+            const {name, shared, userId} = args;
+            console.log(name, shared, userId)
             try {
-                const team = await Team.findOne({id: teamId}, {relations: ["owner"]});
-                if (team) {
-                    if (team.owner.id === user.id) {
-                        await Channel.create(args).save();
-                        return {
-                            ok: true,
-                            error: null
-                        }
-                    } else {
-                        return {
-                            ok: false,
-                            error: "You must be leader of the team to create channel."
-                        }
-                    }
-                } else {
-                    return {
-                        ok: false,
-                        error: "The Team does not exist"
-                    }
+                // logic to create channel
+                const requester = req.user;
+                const requested = await User.findOne({id:userId})
+                await Channel.create({name: name, users: [requester, requested], shared: shared}).save()
+                return {
+                    ok: true,
+                    error: null
                 }
             } catch(error) {
                 return {

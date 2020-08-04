@@ -1,8 +1,0 @@
-type CreateTeamResponse {
-    ok: Boolean!,
-    error: String
-}
-
-type Mutation {
-    CreateTeam(name: String!): CreateTeamResponse!
-}

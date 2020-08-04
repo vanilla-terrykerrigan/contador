@@ -4,8 +4,6 @@ type User {
     username: String!
     password:String!
     messages: [Message]
-    ownedTeams: [Team]
-    teams: [Team]
     channels: [Channel]
     createdAt: String!
     updatedAt: String

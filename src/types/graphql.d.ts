@@ -14,7 +14,6 @@ export type Channel = {
   id: Scalars['Int'];
   name: Scalars['String'];
   messages?: Maybe<Array<Maybe<Message>>>;
-  team?: Maybe<Team>;
   users?: Maybe<Array<Maybe<User>>>;
   shared: Scalars['Boolean'];
   createdAt: Scalars['String'];
@@ -23,12 +22,6 @@ export type Channel = {
 
 export type CreateChannelResponse = {
   __typename?: 'CreateChannelResponse';
-  ok: Scalars['Boolean'];
-  error?: Maybe<Scalars['String']>;
-};
-
-export type CreateTeamResponse = {
-  __typename?: 'CreateTeamResponse';
   ok: Scalars['Boolean'];
   error?: Maybe<Scalars['String']>;
 };
@@ -53,6 +46,12 @@ export type GetUserResponse = {
   user?: Maybe<User>;
 };
 
+export type JoinChannelResponse = {
+  __typename?: 'JoinChannelResponse';
+  ok: Scalars['Boolean'];
+  error?: Maybe<Scalars['String']>;
+};
+
 export type Message = {
   __typename?: 'Message';
   id: Scalars['Int'];
@@ -66,22 +65,17 @@ export type Message = {
 export type Mutation = {
   __typename?: 'Mutation';
   CreateChannel: CreateChannelResponse;
-  CreateTeam: CreateTeamResponse;
   CreateUser: CreateUserResponse;
+  JoinChannel: JoinChannelResponse;
   PostMessage: PostMessageResponse;
   SignIn: SignInResponse;
 };
 
 
 export type MutationCreateChannelArgs = {
-  teamId: Scalars['Int'];
   name: Scalars['String'];
   shared?: Scalars['Boolean'];
-};
-
-
-export type MutationCreateTeamArgs = {
-  name: Scalars['String'];
+  userId: Scalars['Int'];
 };
 
 
@@ -89,6 +83,11 @@ export type MutationCreateUserArgs = {
   username: Scalars['String'];
   email: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationJoinChannelArgs = {
+  channelId: Scalars['Int'];
 };
 
 
@@ -129,17 +128,6 @@ export type SignInResponse = {
   token?: Maybe<Scalars['String']>;
 };
 
-export type Team = {
-  __typename?: 'Team';
-  id: Scalars['Int'];
-  name: Scalars['String'];
-  owner: User;
-  members?: Maybe<Array<Maybe<User>>>;
-  channels?: Maybe<Array<Maybe<Channel>>>;
-  createdAt: Scalars['String'];
-  updatedAt?: Maybe<Scalars['String']>;
-};
-
 export type User = {
   __typename?: 'User';
   id: Scalars['Int'];
@@ -147,20 +135,7 @@ export type User = {
   username: Scalars['String'];
   password: Scalars['String'];
   messages?: Maybe<Array<Maybe<Message>>>;
-  ownedTeams?: Maybe<Array<Maybe<Team>>>;
-  teams?: Maybe<Array<Maybe<Team>>>;
   channels?: Maybe<Array<Maybe<Channel>>>;
-  createdAt: Scalars['String'];
-  updatedAt?: Maybe<Scalars['String']>;
-};
-
-export type Verification = {
-  __typename?: 'Verification';
-  id: Scalars['Int'];
-  target: Scalars['String'];
-  payload: Scalars['String'];
-  key: Scalars['String'];
-  used: Scalars['Boolean'];
   createdAt: Scalars['String'];
   updatedAt?: Maybe<Scalars['String']>;
 };

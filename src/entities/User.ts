@@ -5,16 +5,16 @@ import {
     Column,
     CreateDateColumn,
     Entity, 
-    OneToMany, 
+    OneToMany,
+    ManyToMany,
     PrimaryGeneratedColumn, 
     UpdateDateColumn,
 } from "typeorm";
 import { IsEmail } from "class-validator";
 import bcrypt from "bcrypt";
 import Message from "./Message";
-import Team from "./Team";
-import UserTeam from "./UserTeam";
-import UserChannel from "./UserChannel";
+import Channel from "./Channel";
+
 
 const BCRYPT_ROUNDS = 12;
 
@@ -33,17 +33,11 @@ class User extends BaseEntity {
     @Column({ type: "text", nullable: false})
     password: string;
 
-    @OneToMany(type => UserTeam, userTeam => userTeam.user)
-    userTeams: UserTeam[];
-
-    @OneToMany(type => Team, team => team.owner)
-    ownedTeams: Team[];
-
     @OneToMany(type => Message, message => message.sender)
     messages: Message[];
 
-    @OneToMany(type => UserChannel, userChannel => userChannel.user)
-    userChannels: UserChannel[];
+    @ManyToMany(type => Channel, channel => channel.users, { cascade: true })
+    channels: Channel[];
 
     @CreateDateColumn()
     createdAt: string;
@@ -52,8 +46,8 @@ class User extends BaseEntity {
     updatedAt: string;
     
     
-    //diff betwee async and normal func
-    private hash_password(password: string): Promise<string> {
+    //diff between async and normal func
+    private async hash_password(password: string): Promise<string> {
         return bcrypt.hash(password, BCRYPT_ROUNDS);
     }
 
